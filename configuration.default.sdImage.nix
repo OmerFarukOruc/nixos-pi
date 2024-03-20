@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
 
+{
 let # dont forget to change those variables.
   hostname = "nixos-xxx"; 
   user = "pi";
@@ -12,10 +13,8 @@ let # dont forget to change those variables.
     makeModulesClosure = x:
     super.makeModulesClosure (x // { allowMissing = true; });
   };
-  
-in 
-{
-  # imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz" }/raspberry-pi/4"];
+
+ # imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz" }/raspberry-pi/4"];
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
@@ -139,5 +138,7 @@ in
   services.xserver.displayManager.sessionCommands = ''
      ${pkgs.x11vnc}/bin/x11vnc -rfbauth $HOME/.vnc/passwd -forever -shared -bg -display :0 &
      '';
-
 }
+
+
+  
