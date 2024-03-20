@@ -29,7 +29,7 @@ in
     };
   };
   nixpkgs.overlays = [ overlay ];
-  sdImage.compressImage = false;
+  config.sdImage.compressImage = false;
   
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
