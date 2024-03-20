@@ -17,9 +17,11 @@ in
 {
   # imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz" }/raspberry-pi/4"];
   imports = [
-    "${fetchTarball "https://github.com/NixOS/nixos-hardware/tarball/master"}/raspberry-pi/4"
     <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
-  ]; # switch upper import if gpu rendering feels slow.
+    <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
+  ];
+
+  sdImage.compressImage = true;
 
   fileSystems = {
     "/" = {
