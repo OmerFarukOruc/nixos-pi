@@ -20,7 +20,7 @@ in
     <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
   ];
-
+  documentation.nixos.enable = false;
   sdImage.compressImage = true;
 
   fileSystems = {
@@ -41,7 +41,6 @@ in
   hardware.enableRedistributableFirmware = true;
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "23.11";
-  documentation.nixos.enable = false;
   swapDevices = [{ device = "/swapfile"; size = 2048; }]; 
   security.polkit.enable = true;
 
