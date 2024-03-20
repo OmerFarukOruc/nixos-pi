@@ -58,6 +58,10 @@
     };
   };
 
+  disabledModules = [
+    "profiles/base.nix"
+  ];
+
   users.users = {
     nixos = {
       uid = 1000;
