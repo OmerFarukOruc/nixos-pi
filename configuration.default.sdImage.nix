@@ -26,6 +26,7 @@ in
     };
   };
   nixpkgs.overlays = [ overlay ];
+  sdImage.compressImage = false;
   
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
