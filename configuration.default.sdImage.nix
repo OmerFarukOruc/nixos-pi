@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 
-{
-   # overlay = final: super: {
-     makeModulesClosure = x:
-     super.makeModulesClosure (x // { allowMissing = true; });
-   };
+{  
+  # overlay = final: super: {
+  #   makeModulesClosure = x:
+  #   super.makeModulesClosure (x // { allowMissing = true; });
+  # };
   # nixosHardwareVersion = "7f1836531b126cfcf584e7d7d71bf8758bb58969";
   # imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz" }/raspberry-pi/4"];
   imports = [
