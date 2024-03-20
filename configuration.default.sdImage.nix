@@ -5,6 +5,12 @@
     <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix>
   ];
 
+  nixpkgs.overlays = [
+    (final: super: {
+      makeModulesClosure = x: super.makeModulesClosure (x // { allowMissing = true; });
+    })
+  ];
+
   sdImage.compressImage = true;
   system.stateVersion = "23.11";
 
