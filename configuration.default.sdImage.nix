@@ -1,20 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
-let # dont forget to change those variables.
-  hostname = "nixos-xxx"; 
-  user = "pi";
-  password = "admin";
-  nixosHardwareVersion = "7f1836531b126cfcf584e7d7d71bf8758bb58969";
-  timeZone = "Europe/Istanbul";
-  defaultLocale = "en_US.UTF-8";
-  interface = "wlan0";
-  overlay = final: super: {
-    makeModulesClosure = x:
-    super.makeModulesClosure (x // { allowMissing = true; });
-  };
-
- # imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz" }/raspberry-pi/4"];
+   # overlay = final: super: {
+     makeModulesClosure = x:
+     super.makeModulesClosure (x // { allowMissing = true; });
+   };
+  # nixosHardwareVersion = "7f1836531b126cfcf584e7d7d71bf8758bb58969";
+  # imports = ["${fetchTarball "https://github.com/NixOS/nixos-hardware/archive/${nixosHardwareVersion}.tar.gz" }/raspberry-pi/4"];
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
@@ -28,12 +20,12 @@ let # dont forget to change those variables.
       options = [ "noatime" ];
     };
   };
-  nixpkgs.overlays = [ overlay ];
+  # nixpkgs.overlays = [ overlay ];
   config.system.build.sdImage.compressImage = false;
   
   networking.networkmanager.enable = true;
   services.openssh.enable = true;
-  time.timeZone = timeZone;
+  time.timeZone = "Europe/Istanbul";
   services.tailscale.enable = true;
   hardware.raspberry-pi."4".fkms-3d.enable = true;
   hardware.enableRedistributableFirmware = true;
@@ -75,15 +67,15 @@ let # dont forget to change those variables.
 
   users = {
     mutableUsers = false;
-    users."${user}" = {
+    users."pi" = {
       isNormalUser = true;
-      password = password;
+      password = "admin";
       extraGroups = [ "wheel" ];
     };
   };
 
   security.sudo.extraRules = [
-    {  users = [ user ];
+    {  users = [ "pi" ];
        commands = [
          { command = "ALL" ;
            options= [ "NOPASSWD" ];
@@ -91,21 +83,6 @@ let # dont forget to change those variables.
       ];
     }
   ];
-
-  i18n = {
-    defaultLocale = defaultLocale;
-    extraLocaleSettings = {
-      LC_ADDRESS = defaultLocale;
-      LC_IDENTIFICATION = defaultLocale;
-      LC_MEASUREMENT = defaultLocale;
-      LC_MONETARY = defaultLocale;
-      LC_NAME = defaultLocale;
-      LC_NUMERIC = defaultLocale;
-      LC_PAPER = defaultLocale;
-      LC_TELEPHONE = defaultLocale;
-      LC_TIME = defaultLocale;
-    };
-  };
 
   services.xserver = {
     videoDrivers = [ "modesetting" ];
